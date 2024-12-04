@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { axiosFetch } from "../hooks/useFetch";
-import { useLocalStorage } from "../hooks/useLocalStorage";
+import { useAuth } from "../contexts/useAuth";
 
 export default function Signin() {
 	const navigate = useNavigate();
@@ -9,7 +9,7 @@ export default function Signin() {
 		email: "",
 		password: ""
 	});
-	const [authData, setAuthData] = useLocalStorage("watereye-token");
+	const { setAuth } = useAuth();
 
 	const handleChange = (e) => {
 		setForm({ ...form, [e.target.name]: e.target.value });
@@ -29,7 +29,7 @@ export default function Signin() {
 
 		if (result) {
 			alert(result.message);
-			setAuthData(result.data);
+			setAuth(result.data);
 			navigate("/");
 		}
 	};

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 export function useFetch(method, url, { headers = {}, data = {} } = {}) {
@@ -7,39 +7,24 @@ export function useFetch(method, url, { headers = {}, data = {} } = {}) {
 	const [error, setError] = useState(null);
 
 	useEffect(() => {
-		let isMounted = true;
+		setLoading(true);
 
-		const fetchData = async () => {
-			setLoading(true);
-			try {
-				const res = await axios({
-					method,
-					url: import.meta.env.VITE_API_URL + url,
-					headers,
-					data
-				});
-
-				if (isMounted) {
-					setResult(res.data);
-					setError(null);
-				}
-			} catch (err) {
-				if (isMounted) {
-					setError(err.response ? err.response.data : err.message);
-				}
-			} finally {
-				if (isMounted) {
-					setLoading(false);
-				}
-			}
-		};
-
-		fetchData();
-
-		return () => {
-			isMounted = false;
-		};
-	}, [method, url, headers, data]);
+		axios({
+			method,
+			url: import.meta.env.VITE_API_URL + url,
+			headers,
+			data
+		})
+			.then((res) => {
+				setResult(res.data);
+			})
+			.catch((err) => {
+				setError(err.response ? err.response.data : err.message);
+			})
+			.finally(() => {
+				setLoading(false);
+			});
+	}, [method, url]);
 
 	return { result, loading, error };
 }
