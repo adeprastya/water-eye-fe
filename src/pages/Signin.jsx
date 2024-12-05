@@ -9,7 +9,7 @@ export default function Signin() {
 		email: "",
 		password: ""
 	});
-	const { setAuth } = useAuth();
+	const { signIn } = useAuth();
 
 	const handleChange = (e) => {
 		setForm({ ...form, [e.target.name]: e.target.value });
@@ -18,7 +18,7 @@ export default function Signin() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		const { result, error, loading } = await axiosFetch("POST", "/auth/signin", {
+		const { result, error } = await axiosFetch("POST", "/auth/signin", {
 			headers: { "Content-Type": "application/json" },
 			data: form
 		});
@@ -29,8 +29,8 @@ export default function Signin() {
 
 		if (result) {
 			alert(result.message);
-			setAuth(result.data);
-			navigate("/");
+
+			signIn(result.data);
 		}
 	};
 

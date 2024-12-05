@@ -10,8 +10,8 @@ import { BrowserRouter, Routes, Route } from "react-router";
 
 export default function App() {
 	return (
-		<ContextProvider>
-			<BrowserRouter>
+		<BrowserRouter>
+			<ContextProvider>
 				<Routes>
 					<Route path="/signin" element={<Signin />} />
 					<Route path="/signup" element={<Signup />} />
@@ -21,7 +21,7 @@ export default function App() {
 					<Route path="/history" element={<History />} />
 					<Route path="/track" element={<Track />} />
 				</Routes>
-			</BrowserRouter>
-		</ContextProvider>
+			</ContextProvider>
+		</BrowserRouter>
 	);
 }

@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router";
 
 export function useFetch(method, url, { headers = {}, data = {} } = {}) {
 	const [loading, setLoading] = useState(true);
 	const [result, setResult] = useState(null);
 	const [error, setError] = useState(null);
+	const navigate = useNavigate();
 
 	useEffect(() => {
-		console.log("useFetch Running...");
+		console.log("__useFetch Running...");
 
 		axios({
 			method,
@@ -19,6 +21,9 @@ export function useFetch(method, url, { headers = {}, data = {} } = {}) {
 				setResult(res.data);
 			})
 			.catch((err) => {
+				if (err.response.status === 401) {
+					navigate("/signin");
+				}
 				setError(err.response ? err.response.data : err.message);
 			})
 			.finally(() => {
@@ -31,13 +36,12 @@ export function useFetch(method, url, { headers = {}, data = {} } = {}) {
 
 export const axiosFetch = async (method, url, { headers = {}, data = {} } = {}) => {
 	const result = {
-		loading: true,
 		result: null,
 		error: null
 	};
 
 	try {
-		console.log("axiosFetch Running...");
+		console.log("__axiosFetch Running...");
 
 		const res = await axios({
 			method,
@@ -48,9 +52,6 @@ export const axiosFetch = async (method, url, { headers = {}, data = {} } = {}) 
 		result.result = res.data;
 	} catch (error) {
 		result.error = error.response ? error.response.data : error.message;
-	} finally {
-		result.loading = false;
 	}
-
 	return result;
 };
