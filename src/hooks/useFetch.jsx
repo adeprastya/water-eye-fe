@@ -7,7 +7,7 @@ export function useFetch(method, url, { headers = {}, data = {} } = {}) {
 	const [error, setError] = useState(null);
 
 	useEffect(() => {
-		setLoading(true);
+		console.log("useFetch Running...");
 
 		axios({
 			method,
@@ -37,6 +37,8 @@ export const axiosFetch = async (method, url, { headers = {}, data = {} } = {}) 
 	};
 
 	try {
+		console.log("axiosFetch Running...");
+
 		const res = await axios({
 			method,
 			url: import.meta.env.VITE_API_URL + url,
