@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Scan from "./pages/Scan";
 import History from "./pages/History";
 import Track from "./pages/Track";
+import SubTrack from "./pages/SubTrack";
 import ContextProvider from "./contexts/ContextProvider";
 
 import { BrowserRouter, Routes, Route } from "react-router";
@@ -20,6 +21,7 @@ export default function App() {
 					<Route path="/scan" element={<Scan />} />
 					<Route path="/history" element={<History />} />
 					<Route path="/track" element={<Track />} />
+					<Route path="/track/:id" element={<SubTrack />} />
 				</Routes>
 			</ContextProvider>
 		</BrowserRouter>

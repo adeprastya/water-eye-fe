@@ -1,9 +1,9 @@
-import { useNavigate } from "react-router";
+import { useNavigate, Link } from "react-router";
 import Navbar from "../components/shared/Navbar";
 import { useAuth } from "../contexts/useAuth";
-import { useEffect } from "react";
-import { useFetch } from "../hooks/useFetch";
-import { Card } from "flowbite-react";
+import { useEffect, useState } from "react";
+import { useFetch, axiosFetch } from "../hooks/useFetch";
+import { Card, Button } from "flowbite-react";
 import { timeToString } from "../utils/timeConvert";
 
 export default function Track() {
@@ -38,6 +38,8 @@ export default function Track() {
 				<section className="w-full sm:w-8/12 min-h-dvh mx-auto px-4 py-8 mb-24 flex flex-col gap-8 text-gray-700">
 					<h1 className="text-3xl font-bold">Track</h1>
 
+					<TrackForm auth={auth} />
+
 					{result.data && Array.isArray(result.data) && result.data.map((scan, i) => <TrackCard key={i} data={scan} />)}
 				</section>
 			)}
@@ -45,16 +47,56 @@ export default function Track() {
 	);
 }
 
-export function TrackCard({ data }) {
+function TrackForm({ auth }) {
+	const [name, setName] = useState({});
+
+	const handleChange = (e) => {
+		setName({ ...name, [e.target.name]: e.target.value });
+	};
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+
+		const { result, error } = await axiosFetch("POST", `/user/${auth?.id}/track`, {
+			headers: {
+				Authorization: auth?.token
+			},
+			data: name
+		});
+
+		if (error) {
+			alert(error.message);
+		}
+
+		if (result) {
+			alert(result.message);
+			window.location.reload();
+		}
+	};
+
 	return (
 		<Card className="w-full cursor-pointer">
-			<h5 className="text-2xl font-bold tracking-tight">{data.name}</h5>
+			<form onSubmit={handleSubmit} className="w-full flex gap-2 justify-between">
+				<input onChange={handleChange} name="name" type="text" className="w-full rounded-md" />
 
-			<div className="mt-10">
-				<p className="font-semibold text-xs text-gray-500">{timeToString(data.createdAt)}</p>
-
-				<p className="text-xs text-gray-500">{data.id}</p>
-			</div>
+				<Button type="submit">Create</Button>
+			</form>
 		</Card>
+	);
+}
+
+function TrackCard({ data }) {
+	return (
+		<Link to={`/track/${data.id}`}>
+			<Card className="w-full cursor-pointer">
+				<h5 className="text-2xl font-bold tracking-tight">{data.name}</h5>
+
+				<div className="mt-10">
+					<p className="font-semibold text-xs text-gray-500">{timeToString(data.createdAt)}</p>
+
+					<p className="text-xs text-gray-500">{data.id}</p>
+				</div>
+			</Card>
+		</Link>
 	);
 }

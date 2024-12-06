@@ -52,6 +52,11 @@ export const axiosFetch = async (method, url, { headers = {}, data = {} } = {}) 
 		result.result = res.data;
 	} catch (error) {
 		result.error = error.response ? error.response.data : error.message;
+
+		if (error.response.status === 401) {
+			window.location.href = "/signin";
+		}
 	}
 	return result;
 };
+	
