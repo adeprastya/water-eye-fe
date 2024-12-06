@@ -1,4 +1,4 @@
-import Navbar from "../components/shared/Navbar";
+import NavigationBar from "../components/shared/NavigationBar";
 import { useFetch } from "../hooks/useFetch";
 import { useAuth } from "../contexts/useAuth";
 import { Card } from "flowbite-react";
@@ -30,18 +30,22 @@ export default function History() {
 
 	return (
 		<>
-			<Navbar />
+			<NavigationBar />
 
-			{loading && <div>Loading...</div>}
-			{error && <div>Error: {error}</div>}
+			<section className="w-full min-h-dvh flex flex-col justify-start items-center bg-slate-100 text-slate-700">
+				<div className="w-full px-4 py-2 sm:p-20 sm:py-4 lg:px-40 lg:py-6 flex flex-col gap-6">
+					<h1 className="block w-full text-4xl font-bold">History</h1>
 
-			{result && (
-				<section className="w-full sm:w-8/12 min-h-dvh mx-auto px-4 py-8 mb-24 flex flex-col gap-8 text-gray-700">
-					<h1 className="text-3xl font-bold">History</h1>
+					{loading && <div>Loading...</div>}
 
-					{result.data && Array.isArray(result.data) && result.data.map((scan, i) => <ScanCard key={i} data={scan} />)}
-				</section>
-			)}
+					{error && <div>Error: {error}</div>}
+
+					{result &&
+						result.data &&
+						Array.isArray(result.data) &&
+						result.data.map((scan, i) => <ScanCard key={i} data={scan} />)}
+				</div>
+			</section>
 		</>
 	);
 }

@@ -1,4 +1,4 @@
-import Navbar from "../components/shared/Navbar";
+import NavigationBar from "../components/shared/NavigationBar";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router";
 import { useAuth } from "../contexts/useAuth";
@@ -55,7 +55,7 @@ export default function SubTrack() {
 
 	return (
 		<>
-			<Navbar />
+			<NavigationBar />
 
 			{loading && parentLoading && <div>Loading...</div>}
 			{error && parentError && <div>Error: {(error, parentError)}</div>}
@@ -134,8 +134,6 @@ export function TrackScan({ id }) {
 
 	return (
 		<>
-			<Navbar />
-
 			<section className="w-full sm:w-8/12 min-h-dvh mx-auto px-4 py-8 pb-24 flex flex-col gap-8 text-gray-700">
 				<h1 className="font-bold text-3xl">Scan</h1>
 				<p>Upload your water image to get the result</p>

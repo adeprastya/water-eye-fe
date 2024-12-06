@@ -1,5 +1,5 @@
+import NavigationBar from "../components/shared/NavigationBar";
 import { useNavigate, Link } from "react-router";
-import Navbar from "../components/shared/Navbar";
 import { useAuth } from "../contexts/useAuth";
 import { useEffect, useState } from "react";
 import { useFetch, axiosFetch } from "../hooks/useFetch";
@@ -29,20 +29,24 @@ export default function Track() {
 
 	return (
 		<>
-			<Navbar />
+			<NavigationBar />
 
-			{loading && <div>Loading...</div>}
-			{error && <div>Error: {error}</div>}
-
-			{result && (
-				<section className="w-full sm:w-8/12 min-h-dvh mx-auto px-4 py-8 mb-24 flex flex-col gap-8 text-gray-700">
-					<h1 className="text-3xl font-bold">Track</h1>
+			<section className="w-full min-h-dvh flex flex-col justify-start items-center bg-slate-100 text-slate-700">
+				<div className="w-full px-4 py-2 sm:p-20 sm:py-4 lg:px-40 lg:py-6 flex flex-col gap-6">
+					<h1 className="block w-full text-4xl font-bold">Track</h1>
 
 					<TrackForm auth={auth} />
 
-					{result.data && Array.isArray(result.data) && result.data.map((scan, i) => <TrackCard key={i} data={scan} />)}
-				</section>
-			)}
+					{loading && <div>Loading...</div>}
+
+					{error && <div>Error: {error}</div>}
+
+					{result &&
+						result.data &&
+						Array.isArray(result.data) &&
+						result.data.map((scan, i) => <TrackCard key={i} data={scan} />)}
+				</div>
+			</section>
 		</>
 	);
 }

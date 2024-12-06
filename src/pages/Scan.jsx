@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import Navbar from "../components/shared/Navbar";
-import { FileInput, Label } from "flowbite-react";
+import NavigationBar from "../components/shared/NavigationBar";
+import { FileInput, Label, Button } from "flowbite-react";
 import { axiosFetch } from "../hooks/useFetch";
 import { useAuth } from "../contexts/useAuth";
 import { useNavigate } from "react-router";
+import logo from "../assets/images/logo.png";
 
 export default function Scan() {
 	const { auth } = useAuth();
@@ -64,68 +65,76 @@ export default function Scan() {
 
 	return (
 		<>
-			<Navbar />
+			<NavigationBar />
 
-			<section className="w-full sm:w-8/12 min-h-dvh mx-auto px-4 py-8 pb-24 flex flex-col gap-8 text-gray-700">
-				<h1 className="font-bold text-3xl">Scan</h1>
-				<p>Upload your water image to get the result</p>
+			<section className="w-full min-h-dvh flex flex-col justify-start items-center bg-slate-100 text-slate-700">
+				<div className="w-full px-4 py-2 sm:p-20 sm:py-4 lg:px-40 lg:py-6 flex flex-col gap-6">
+					<h1 className="block w-full text-4xl font-bold">Scan</h1>
 
-				<div className="flex w-full items-center justify-center">
-					<Label
-						htmlFor="dropzone-file"
-						className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-					>
-						<div className="flex flex-col items-center justify-center pb-6 pt-5">
-							<svg
-								className="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400"
-								aria-hidden="true"
-								xmlns="http://www.w3.org/2000/svg"
-								fill="none"
-								viewBox="0 0 20 16"
-							>
-								<path
-									stroke="currentColor"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									strokeWidth="2"
-									d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-								/>
-							</svg>
-							<p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-								<span className="font-semibold">Click to upload</span> or drag and drop
-							</p>
-							<p className="text-xs text-gray-500 dark:text-gray-400">PNG, JPG or JPEG</p>
-						</div>
-						<FileInput id="dropzone-file" className="hidden" onChange={handleFileChange} />
-					</Label>
-				</div>
+					<p>Upload your water image to see the result</p>
 
-				{previewImage && (
-					<div className="mt-4">
-						<h2 className="font-bold text-lg">Selected Image:</h2>
+					{/* File input/Dropzone container */}
+					<div className="h-64 grid grid-cols-2 gap-10">
+						{/* File input/Dropzone */}
+						<Label
+							htmlFor="dropzone-file"
+							className="cursor-pointer flex flex-col items-center justify-center rounded-md border-2 border-dashed border-primary-500 bg-gray-50 hover:bg-primary-100"
+						>
+							<div className="flex flex-col items-center justify-center pb-6 pt-5">
+								<UploadSvg />
+								<p className="mb-2 text-sm text-gray-500 dark:text-gray-400">Click or Drag and Drop here</p>
+								<p className="text-xs text-gray-500 dark:text-gray-400">PNG, JPG or JPEG</p>
+							</div>
+							<FileInput id="dropzone-file" className="hidden" onChange={handleFileChange} />
+						</Label>
+
+						{/* Image preview */}
 						<img
-							src={previewImage}
-							alt="Selected Preview"
-							className="mt-2 w-full rounded-lg border border-gray-300 shadow-md"
+							src={previewImage ? previewImage : logo}
+							alt="Selected Image"
+							className={`object-cover size-full max-h-64 rounded-md border-2 border-primary-400 bg-primary-100 ${
+								previewImage ? "" : "opacity-20"
+							}`}
 						/>
 					</div>
-				)}
 
-				<button
-					onClick={handleUpload}
-					className="mt-4 w-full rounded-lg bg-blue-500 py-2 px-4 text-white hover:bg-blue-600 disabled:opacity-50"
-					disabled={!selectedFile}
-				>
-					Scan Image
-				</button>
+					{/* Scan button */}
+					<Button
+						onClick={handleUpload}
+						className="text-white bg-primary-500 disabled:opacity-60"
+						disabled={!selectedFile}
+					>
+						Scan Image
+					</Button>
 
-				{result && (
-					<div className="mt-8 p-4 rounded-lg bg-gray-100 text-gray-700">
-						<h2 className="font-bold text-lg">Result:</h2>
-						<pre className="whitespace-pre-wrap">{JSON.stringify(result, null, 2)}</pre>
-					</div>
-				)}
+					{result && (
+						<div className="mt-8 p-4 rounded-lg bg-gray-100 text-gray-700">
+							<h2 className="font-bold text-lg">Result:</h2>
+							<pre className="whitespace-pre-wrap">{JSON.stringify(result, null, 2)}</pre>
+						</div>
+					)}
+				</div>
 			</section>
 		</>
+	);
+}
+
+function UploadSvg() {
+	return (
+		<svg
+			className="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400"
+			aria-hidden="true"
+			xmlns="http://www.w3.org/2000/svg"
+			fill="none"
+			viewBox="0 0 20 16"
+		>
+			<path
+				stroke="currentColor"
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				strokeWidth="2"
+				d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+			/>
+		</svg>
 	);
 }
