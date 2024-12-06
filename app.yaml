@@ -1,0 +1,14 @@
+runtime: nodejs20
+
+env: standard
+
+handlers:
+  - url: /.*
+    static_files: dist/index.html
+    upload: dist/index.html
+
+  - url: /
+    static_dir: dist
+
+# Optional: Set instance class for resources (default is F1)
+instance_class: F1
