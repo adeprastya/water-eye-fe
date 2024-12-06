@@ -28,16 +28,3 @@
 # Node.js dependencies:
 
 node_modules/
-
-public/
-src/
-.env
-.env.example
-eslint.config.js
-index.html
-package-lock.json
-package.json
-postcss.config.js
-README.md
-tailwind.config.js
-vite.config.js

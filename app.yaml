@@ -1,14 +1,22 @@
-runtime: nodejs20
+runtime: nodejs22
 
 env: standard
 
 handlers:
+  # Menangani file statis di dalam folder 'assets'
+  - url: /assets/(.*)
+    static_files: dist/assets/\1
+    upload: dist/assets/.*
+    secure: never
+
+  # Menangani permintaan untuk root URL dengan memberikan index.html
+  - url: /
+    static_files: dist/index.html
+    upload: dist/index.html
+    secure: never
+
+  # Menangani request yang mengarah ke index.html untuk semua route
   - url: /.*
     static_files: dist/index.html
     upload: dist/index.html
-
-  - url: /
-    static_dir: dist
-
-# Optional: Set instance class for resources (default is F1)
-instance_class: F1
+    secure: never
