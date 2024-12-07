@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useFetch, axiosFetch } from "../hooks/useFetch";
 import { Card, Button } from "flowbite-react";
 import { timeToString } from "../utils/timeConvert";
+import MainContainer from "../components/shared/MainContainer";
 
 export default function Track() {
 	const { auth } = useAuth();
@@ -31,8 +32,8 @@ export default function Track() {
 		<>
 			<NavigationBar />
 
-			<section className="w-full min-h-dvh flex flex-col justify-start items-center bg-slate-100 text-slate-700">
-				<div className="w-full px-4 py-2 sm:p-20 sm:py-4 lg:px-40 lg:py-6 flex flex-col gap-6">
+			<MainContainer>
+				<div className="flex flex-col gap-6">
 					<h1 className="block w-full text-4xl font-bold">Track</h1>
 
 					<TrackForm auth={auth} />
@@ -46,7 +47,7 @@ export default function Track() {
 						Array.isArray(result.data) &&
 						result.data.map((scan, i) => <TrackCard key={i} data={scan} />)}
 				</div>
-			</section>
+			</MainContainer>
 		</>
 	);
 }
@@ -93,12 +94,12 @@ function TrackCard({ data }) {
 	return (
 		<Link to={`/track/${data.id}`}>
 			<Card className="w-full cursor-pointer">
-				<h5 className="text-2xl font-bold tracking-tight">{data.name}</h5>
+				<h5 className="text-3xl font-bold tracking-wide">{data.name}</h5>
 
 				<div className="mt-10">
-					<p className="font-semibold text-xs text-gray-500">{timeToString(data.createdAt)}</p>
+					<p className="font-semibold text-gray-600">{timeToString(data.createdAt)}</p>
 
-					<p className="text-xs text-gray-500">{data.id}</p>
+					<p className="text-gray-600">{data.id}</p>
 				</div>
 			</Card>
 		</Link>

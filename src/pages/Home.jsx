@@ -5,10 +5,11 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { Button, Badge } from "flowbite-react";
 import logo from "../assets/images/logo.png";
+import MainContainer from "../components/shared/MainContainer";
 
 export default function Home() {
 	const navigate = useNavigate();
-	const { auth, signOut } = useAuth();
+	const { auth } = useAuth();
 	const { loading, result, error } = useFetch("GET", `/user/${auth?.id}`, {
 		headers: { Authorization: auth?.token }
 	});
@@ -46,8 +47,8 @@ export default function Home() {
 		<>
 			<NavigationBar />
 
-			<section className="w-full min-h-dvh flex flex-col justify-start items-center bg-slate-100 text-slate-700">
-				<div className="w-full px-4 py-2 sm:p-20 sm:py-4 lg:px-40 lg:py-6 flex flex-wrap gap-6">
+			<MainContainer>
+				<div className="space-y-6">
 					<h1 className="block w-full text-4xl font-bold">Home</h1>
 
 					{loading && <div>Loading...</div>}
@@ -87,19 +88,10 @@ export default function Home() {
 							>
 								<p className="font-semibold text-2xl tracking-wide">Get Premium Now !</p>
 							</Button>
-
-							{/* Sign Out Button */}
-							<Button
-								className="fixed bottom-4 left-0 mx-4 sm:mx-20 lg:mx-40 bg-red-500"
-								onClick={signOut}
-								color="failure"
-							>
-								Sign Out !
-							</Button>
 						</>
 					)}
 				</div>
-			</section>
+			</MainContainer>
 		</>
 	);
 }

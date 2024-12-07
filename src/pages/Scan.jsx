@@ -5,6 +5,8 @@ import { axiosFetch } from "../hooks/useFetch";
 import { useAuth } from "../contexts/useAuth";
 import { useNavigate } from "react-router";
 import logo from "../assets/images/logo.png";
+import ScanResultCard from "../components/shared/ScanResultCard";
+import MainContainer from "../components/shared/MainContainer";
 
 export default function Scan() {
 	const { auth } = useAuth();
@@ -67,14 +69,14 @@ export default function Scan() {
 		<>
 			<NavigationBar />
 
-			<section className="w-full min-h-dvh flex flex-col justify-start items-center bg-slate-100 text-slate-700">
-				<div className="w-full px-4 py-2 sm:p-20 sm:py-4 lg:px-40 lg:py-6 flex flex-col gap-6">
+			<MainContainer>
+				<div className="flex flex-col gap-6">
 					<h1 className="block w-full text-4xl font-bold">Scan</h1>
 
 					<p>Upload your water image to see the result</p>
 
 					{/* File input/Dropzone container */}
-					<div className="h-64 grid grid-cols-2 gap-10">
+					<div className="h-96 sm:h-64 grid grid-rows-2 sm:grid-rows-1 sm:grid-cols-2 gap-10">
 						{/* File input/Dropzone */}
 						<Label
 							htmlFor="dropzone-file"
@@ -107,19 +109,16 @@ export default function Scan() {
 						Scan Image
 					</Button>
 
-					{result && (
-						<div className="mt-8 p-4 rounded-lg bg-gray-100 text-gray-700">
-							<h2 className="font-bold text-lg">Result:</h2>
-							<pre className="whitespace-pre-wrap">{JSON.stringify(result, null, 2)}</pre>
-						</div>
-					)}
+					{error && <p className="text-red-500">{error.message}</p>}
+
+					{result && <ScanResultCard data={result.data} />}
 				</div>
-			</section>
+			</MainContainer>
 		</>
 	);
 }
 
-function UploadSvg() {
+export function UploadSvg() {
 	return (
 		<svg
 			className="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400"
