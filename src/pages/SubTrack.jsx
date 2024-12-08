@@ -74,10 +74,13 @@ export default function SubTrack() {
 						<h2 className="pt-10 text-2xl font-semibold">Result Track:</h2>
 
 						<div className="flex flex-wrap justify-center md:justify-start gap-6">
-							{Array.isArray(result.data) &&
+							{Array.isArray(result.data) && result.data.length > 0 ? (
 								result.data
 									.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-									.map((scan) => <ScanCard key={scan.id} data={scan} />)}
+									.map((scan) => <ScanCard key={scan.id} data={scan} />)
+							) : (
+								<h6 className="text-lg font-semibold">Track history still empty</h6>
+							)}
 						</div>
 					</div>
 				)}

@@ -1,7 +1,7 @@
 import { Card, Badge } from "flowbite-react";
 
 export default function ScanResultCard({ data }) {
-	if (data.color === "not-water") {
+	if (data.color.toLowerCase() == "Not Water".toLocaleLowerCase()) {
 		return (
 			<Card>
 				<h5 className="text-4xl font-bold">Not Water</h5>

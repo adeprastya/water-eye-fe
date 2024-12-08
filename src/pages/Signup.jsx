@@ -35,7 +35,7 @@ export default function Signup() {
 	};
 
 	return (
-		<section className="w-full min-h-dvh flex flex-col items-center justify-center gap-8 bg-slate-200 text-slate-700">
+		<section className="w-full min-h-dvh flex flex-col items-center justify-center gap-8 bg-slate-100 text-slate-700">
 			{/* Logo */}
 			<div className="flex items-center gap-2 sm:gap-4">
 				<img className="size-6 sm:size-8" src={logo} alt="logo" />

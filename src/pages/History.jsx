@@ -43,7 +43,13 @@ export default function History() {
 					{error && <div>Error: {error}</div>}
 
 					<div className="flex flex-wrap justify-center md:justify-start gap-6">
-						{result && Array.isArray(result.data) && result.data.map((scan, i) => <ScanCard key={i} data={scan} />)}
+						{result && Array.isArray(result.data) && result.data.length > 0 ? (
+							result.data.map((scan, i) => <ScanCard key={i} data={scan} />)
+						) : (
+							<h2 className="block w-full text-2xl font-semibold">
+								Your history is empty, start scanning to see Your history
+							</h2>
+						)}
 					</div>
 				</div>
 			</MainContainer>

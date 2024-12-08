@@ -15,6 +15,7 @@ export default function Scan() {
 	const [previewImage, setPreviewImage] = useState(null);
 	const [result, setResult] = useState(null);
 	const [error, setError] = useState(null);
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		if (!auth || auth === "undefined") {
@@ -50,6 +51,8 @@ export default function Scan() {
 			return;
 		}
 
+		setLoading(true);
+
 		const formData = new FormData();
 		formData.append("image", selectedFile);
 
@@ -63,6 +66,8 @@ export default function Scan() {
 		}
 
 		setResult(result);
+
+		setLoading(false);
 	};
 
 	return (
@@ -104,7 +109,7 @@ export default function Scan() {
 					<Button
 						onClick={handleUpload}
 						className="text-white bg-primary-500 disabled:opacity-60"
-						disabled={!selectedFile}
+						disabled={!selectedFile || loading}
 					>
 						Scan Image
 					</Button>
