@@ -35,7 +35,7 @@ export default function Track() {
 			<NavigationBar />
 
 			<MainContainer>
-				<div className="flex flex-col gap-6">
+				<div className="relative z-0 flex flex-col gap-6">
 					<h1 className="block w-full text-4xl font-bold">Track</h1>
 
 					<TrackForm auth={auth} />

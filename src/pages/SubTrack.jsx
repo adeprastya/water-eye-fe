@@ -64,7 +64,7 @@ export default function SubTrack() {
 				{error && parentError && <div>Error: {`${error}, ${parentError}`}</div>}
 
 				{result && (
-					<div className="space-y-6">
+					<div className="relative z-0 space-y-6">
 						{parent && <h1 className="text-3xl font-bold">Track {parent.name}</h1>}
 
 						<p>Upload your water image to see the result</p>

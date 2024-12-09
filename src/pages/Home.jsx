@@ -82,7 +82,7 @@ export default function Home() {
 			<NavigationBar />
 
 			<MainContainer>
-				<div className="space-y-6">
+				<div className="relative z-0 space-y-6">
 					<h1 className="block w-full text-4xl font-bold">Home</h1>
 
 					{loading && <div>Loading...</div>}
@@ -90,7 +90,7 @@ export default function Home() {
 					{error && <div>Error: {error}</div>}
 
 					{result && (
-						<div className="grid gap-6 sm:gap-x-4 grid-cols-1 sm:grid-cols-2">
+						<div className=" grid gap-6 sm:gap-x-4 grid-cols-1 sm:grid-cols-2">
 							{/* User Card */}
 							<div className="sm:col-span-2 w-full p-6 border-2 border-primary-500 rounded-md shadow-md flex flex-col gap-6 bg-slate-50">
 								<div className="flex justify-between items-start">

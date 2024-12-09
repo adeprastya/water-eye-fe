@@ -75,7 +75,7 @@ export default function Scan() {
 			<NavigationBar />
 
 			<MainContainer>
-				<div className="flex flex-col gap-6">
+				<div className="relative z-0 flex flex-col gap-6">
 					<h1 className="block w-full text-4xl font-bold">Scan</h1>
 
 					<p>Upload your water image to see the result</p>

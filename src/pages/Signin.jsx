@@ -4,6 +4,7 @@ import { axiosFetch } from "../hooks/useFetch";
 import { useAuth } from "../contexts/useAuth";
 import { Button, Label, TextInput, Card } from "flowbite-react";
 import logo from "../assets/images/logo.png";
+import Bg from "../components/shared/Bg";
 
 export default function Signin() {
 	const { signIn } = useAuth();
@@ -36,15 +37,17 @@ export default function Signin() {
 	};
 
 	return (
-		<section className="w-full min-h-dvh flex flex-col items-center justify-center gap-8 bg-slate-100 text-slate-700">
-			{/* Logo */}
-			<div className="flex items-center gap-2 sm:gap-4">
-				<img className="size-6 sm:size-8" src={logo} alt="logo" />
+		<section className="relative w-full min-h-dvh flex flex-col items-center justify-center gap-8 bg-slate-100 text-slate-700">
+			<Bg />
 
-				<h1 className="text-xl sm:text-2xl font-bold text-slate-600 tracking-tight">Water Eye</h1>
-			</div>
+			<Card className="relative w-full max-w-md flex p-4 z-0">
+				{/* Logo */}
+				<div className="mb-8 flex items-center justify-center gap-2 sm:gap-4">
+					<img className="size-6 sm:size-8" src={logo} alt="logo" />
 
-			<Card className="w-full max-w-md flex p-4">
+					<h1 className="text-xl sm:text-2xl font-bold text-slate-600 tracking-tight">Water Eye</h1>
+				</div>
+
 				<h1 className="mb-4 text-2xl sm:text-3xl font-bold">Login to your account</h1>
 
 				<form onSubmit={handleSubmit} className="flex flex-col gap-4">

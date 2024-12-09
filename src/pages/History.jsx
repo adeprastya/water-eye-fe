@@ -35,7 +35,7 @@ export default function History() {
 			<NavigationBar />
 
 			<MainContainer>
-				<div className="space-y-6">
+				<div className="relative z-0 space-y-6">
 					<h1 className="block w-full text-4xl font-bold">History</h1>
 
 					{loading && <div>Loading...</div>}
