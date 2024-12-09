@@ -110,7 +110,7 @@ export default function Home() {
 								<p className="text-slate-600">
 									Remaining scan:{" "}
 									<span className="font-semibold text-slate-700">
-										{result.data.isPremium ? "Unlimited" : 20 - result.data.dailyScanHits}
+										{result.data.isPremium ? "Unlimited" : 10 - result.data.dailyScanHits}
 									</span>
 								</p>
 							</div>
